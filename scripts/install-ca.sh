@@ -2,7 +2,7 @@
 
 
 
-# Install ca operator 
+# Install ca operator
 oc project ${OP_NAMESPACE}
 
 cd ../files
@@ -15,11 +15,11 @@ echo $result
 sleep 1m
 
 cd ../scripts
-# Checking if the ca operator pods are ready and running. 	
-# checking status of ca-operator	
+# Checking if the ca operator pods are ready and running.
+# checking status of ca-operator
 ./pod-status-check.sh ca-operator ${OP_NAMESPACE}
 
-# switch to zen namespace	
+# switch to zen namespace
 oc project ${NAMESPACE}
 
 cd ../files
@@ -38,5 +38,5 @@ echo $result
 
 cd ../scripts
 
-# check the CCS cr status	
+# check the CCS cr status
 ./check-cr-status.sh CAService ca-cr ${NAMESPACE} caAddonStatus

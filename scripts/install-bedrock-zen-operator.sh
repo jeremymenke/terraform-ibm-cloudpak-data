@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-# Setup global_pull secret 
+# Setup global_pull secret
 ./setup-global-pull-secret-bedrock.sh ${ENTITLEMENT_USER} ${ENTITLEMENT_KEY}
 
 ibmcloud login --apikey ${IBMCLOUD_APIKEY} -g ${IBMCLOUD_RG_NAME} -r ${REGION}
@@ -15,7 +15,7 @@ fi
 
 cd ../files
 
-# # create bedrock catalog source 
+# # create bedrock catalog source
 
 echo '*** executing **** oc create -f bedrock-catalog-source.yaml'
 
@@ -69,13 +69,13 @@ while true; do
   sleep 10
 done
 
-  
-# Creating the ibm-common-services namespace: 
+
+# Creating the ibm-common-services namespace:
 
 oc new-project ${OP_NAMESPACE}
 oc project ${OP_NAMESPACE}
 
-# Create bedrock operator group: 
+# Create bedrock operator group:
 
 sed -i -e "s/OPERATOR_NAMESPACE/${OP_NAMESPACE}/g" bedrock-operator-group.yaml
 
@@ -210,12 +210,12 @@ while true; do
     echo "No pods with Error"
   fi
 done
-  
+
 sleep 60
 
 cd ../scripts
 
-# Checking if the bedrock operator pods are ready and running. 
+# Checking if the bedrock operator pods are ready and running.
 
 # checking status of ibm-namespace-scope-operator
 
@@ -240,7 +240,7 @@ cd ../files
 oc new-project ${NAMESPACE}
 oc project ${NAMESPACE}
 
-# Create the zen operator 
+# Create the zen operator
 sed -i -e s#CPD_NAMESPACE#${NAMESPACE}#g cpd-operandrequest.yaml
 
 echo '*** executing **** oc create -f cpd-operandrequest.yaml'
@@ -254,7 +254,7 @@ if [[ ${ON_VPC} == false ]] ; then
     sed -i -e "s/portworx-shared-gp3/ibmc-file-gold-gid/g" ibmcpd-cr.yaml
 fi
 
-# Create lite CR: 
+# Create lite CR:
 sed -i -e s#CPD_NAMESPACE#${NAMESPACE}#g ibmcpd-cr.yaml
 echo '*** executing **** oc create -f ibmcpd-cr.yaml'
 result=$(oc create -f ibmcpd-cr.yaml)

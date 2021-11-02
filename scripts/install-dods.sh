@@ -15,7 +15,7 @@ sleep 1m
 
 cd ../scripts
 
-# Checking if the dods operator pods are ready and running. 
+# Checking if the dods operator pods are ready and running.
 # checking status of ibm-cpd-dods-operator
 ./pod-status-check.sh ibm-cpd-dods-operator ${OP_NAMESPACE}
 
@@ -24,7 +24,7 @@ oc project ${NAMESPACE}
 
 cd ../files
 
-# Create dods CR: 
+# Create dods CR:
 
 sed -i -e "s/REPLACE_NAMESPACE/${NAMESPACE}/g" dods-cr.yaml
 echo '*** executing **** oc create -f dods-cr.yaml'

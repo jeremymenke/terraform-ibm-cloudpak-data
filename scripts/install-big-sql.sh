@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-# Install bigsql operator 
+# Install bigsql operator
 oc project ${OP_NAMESPACE}
 
 cd ../files
@@ -15,7 +15,7 @@ sleep 1m
 
 cd ../scripts
 
-# Checking if the bigsql operator pods are ready and running. 
+# Checking if the bigsql operator pods are ready and running.
 # checking status of ibm-bigsql-operator
 ./pod-status-check.sh ibm-bigsql-operator ${OP_NAMESPACE}
 
@@ -24,7 +24,7 @@ oc project ${NAMESPACE}
 
 cd ../files
 
-## Install Custom Resource bigsql 
+## Install Custom Resource bigsql
 
 sed -i -e "s/REPLACE_NAMESPACE/${NAMESPACE}/g" big-sql-cr.yaml
 echo '*** executing **** oc create -f big-sql-cr.yaml'

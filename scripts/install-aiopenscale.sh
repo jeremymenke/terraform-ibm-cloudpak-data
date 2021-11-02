@@ -10,7 +10,7 @@ echo $result
 
 sleep 1m
 
-# Checking if the wos operator pods are ready and running. 
+# Checking if the wos operator pods are ready and running.
 
 cd ../scripts
 

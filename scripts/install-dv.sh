@@ -15,7 +15,7 @@ sleep 1m
 
 cd ../scripts
 
-# Checking if the dv operator pods are ready and running. 
+# Checking if the dv operator pods are ready and running.
 
 ./pod-status-check.sh ibm-dv-operator ${OP_NAMESPACE}
 

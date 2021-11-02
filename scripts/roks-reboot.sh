@@ -34,7 +34,7 @@ function reboot {
 
     if ${ON_VPC}; then
     # this is the name under which k8s knows the node
-    #for VPC Gen2 ROKS Cluster - 
+    #for VPC Gen2 ROKS Cluster -
     private_ip=$(ibmcloud oc worker get -s --cluster ${cluster} --worker ${worker} --json | jq -r .networkInterfaces[].ipAddress)
     else
     #for Classic cluster please use the below line of code instead of above

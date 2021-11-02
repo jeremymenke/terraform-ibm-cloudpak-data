@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Install wsruntime operator 
+# Install wsruntime operator
 
 cd ../files
 
@@ -14,7 +14,7 @@ sleep 1m
 cd ../scripts
 
 
-# Checking if the wsruntime operator pods are ready and running. 
+# Checking if the wsruntime operator pods are ready and running.
 ./pod-status-check.sh ibm-cpd-ws-operator ${OP_NAMESPACE}
 
 cd ../files
@@ -23,7 +23,7 @@ cd ../files
 
 oc project ${NAMESPACE}
 
-# Create wsruntime CR: 
+# Create wsruntime CR:
 sed -i -e s#CPD_NAMESPACE#${NAMESPACE}#g wsruntime-cr.yaml
 result=$(oc create -f wsruntime-cr.yaml)
 echo $result

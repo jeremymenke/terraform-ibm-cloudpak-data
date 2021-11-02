@@ -2,7 +2,7 @@
 
 #Create directory
 
-# Copy the required yaml files for wkc setup .. 
+# Copy the required yaml files for wkc setup ..
 cd wkc-files
 
 ## Install WKC Operator
@@ -14,7 +14,7 @@ result=$(oc create -f wkc-sub.yaml)
 echo $result
 sleep 1m
 
-# Checking if the wkc operator pods are ready and running. 
+# Checking if the wkc operator pods are ready and running.
 
 ./../pod-status-check.sh ibm-cpd-wkc-operator ${OP_NAMESPACE}
 

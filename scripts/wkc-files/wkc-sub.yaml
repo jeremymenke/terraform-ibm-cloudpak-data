@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/managed-by: ibm-cpd-wkc-operator
     app.kubernetes.io/name:  ibm-cpd-wkc-operator-catalog-subscription
   name: ibm-cpd-wkc-operator-catalog-subscription
-  namespace: OPERATOR_NAMESPACE 
+  namespace: OPERATOR_NAMESPACE
 spec:
     channel: v1.0
     installPlanApproval: Automatic

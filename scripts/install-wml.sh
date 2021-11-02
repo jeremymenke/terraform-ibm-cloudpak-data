@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Install wml operator 
+# Install wml operator
 
 cd ../files
 
@@ -11,7 +11,7 @@ result=$(oc create -f wml-sub.yaml)
 echo $result
 sleep 1m
 
-# Checking if the wml operator pods are ready and running. 
+# Checking if the wml operator pods are ready and running.
 
 cd ../scripts
 
@@ -25,7 +25,7 @@ oc project ${NAMESPACE}
 
 cd ../files
 
-# Create wml CR: 
+# Create wml CR:
 
 # ****** sed command for classic goes here *******
 if [[ ${ON_VPC} == false ]] ; then

@@ -62,7 +62,7 @@ module "cp4data" {
   worker_node_flavor = var.worker_node_flavor
 
   operator_namespace = var.operator_namespace
-  
+
   // Entitled Registry parameters:
   entitled_registry_key        = var.entitled_registry_key
   entitled_registry_user_email = var.entitled_registry_user_email

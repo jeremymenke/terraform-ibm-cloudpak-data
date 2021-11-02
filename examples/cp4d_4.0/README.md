@@ -56,21 +56,21 @@ These parameters are:
 - `entitled_registry_user_email`: IBM Container Registry (ICR) username which is the email address of the owner of the Entitled Registry Key
 - `resource_group_name`: Resource group that the cluster is provisioned in
 - `accept_cpd_license`: If set to `true`, you accept all cpd license agreements including additional modules installed. By default, it's `false`
-- `install_wsl`:  Install Watson Studio module. By default it's not installed. 
-- `install_aiopenscale`: Install  Watson AI OpenScale module. By default it's not installed. 
+- `install_wsl`:  Install Watson Studio module. By default it's not installed.
+- `install_aiopenscale`: Install  Watson AI OpenScale module. By default it's not installed.
 - `install_wml`: Install Watson Machine Learning module. By default it's not installed.
 - `install_wkc`: Install Watson Knowledge Catalog module. By default it's not installed.
 - `install_dv`: Install Data Virtualization module. By default it's not installed.
-- `install_spss`: Install SPSS Modeler module. By default it's not installed. 
-- `install_cde`: Install Cognos Dashboard Engine module. By default it's not installed.  
+- `install_spss`: Install SPSS Modeler module. By default it's not installed.
+- `install_cde`: Install Cognos Dashboard Engine module. By default it's not installed.
 - `install_spark`: Install Analytics Engine powered by Apache Spark module. By default it's not installed.
-- `install_dods`: Install Decision Optimization module. By default it's not installed. 
-- `install_ca`: Install Cognos Analytics module. By default it's not installed. 
+- `install_dods`: Install Decision Optimization module. By default it's not installed.
+- `install_ca`: Install Cognos Analytics module. By default it's not installed.
 - `install_ds`: Install DataStage module. By default it's not installed.
 - `install_db2oltp`: Install Db2oltp module. By default it's not installed.
-- `install_db2wh`: Install Db2 Warehouse module. By default it's not installed.         
+- `install_db2wh`: Install Db2 Warehouse module. By default it's not installed.
 - `install_big_sql`: Install Db2 Big SQL module. By default it's not installed.
-- `install_wsruntime`: Install Jupyter Python 3.7 Runtime Addon. By default it's not installed.                                
+- `install_wsruntime`: Install Jupyter Python 3.7 Runtime Addon. By default it's not installed.
 
 ### Execute the example
 

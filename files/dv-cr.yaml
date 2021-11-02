@@ -9,4 +9,4 @@ spec:
     license: Enterprise
   version: 1.7.2
   size: "small"
-  docker_registry_prefix: "cp.icr.io/cp/cpd" 
+  docker_registry_prefix: "cp.icr.io/cp/cpd"

@@ -14,7 +14,7 @@ sleep 1m
 cd ../scripts
 
 
-# Checking if the cde operator pods are ready and running. 
+# Checking if the cde operator pods are ready and running.
 # checking status of ibm-cde-operator
 ./pod-status-check.sh ibm-cde-operator ${OP_NAMESPACE}
 

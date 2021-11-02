@@ -17,16 +17,16 @@ sleep 1m
 
 cd ../scripts
 
-# Checking if the ds operator pods are ready and running. 	
-# checking status of ds-operator	
+# Checking if the ds operator pods are ready and running.
+# checking status of ds-operator
 ./pod-status-check.sh datastage-operator ${OP_NAMESPACE}
 
-# switch to zen namespace	
+# switch to zen namespace
 oc project ${NAMESPACE}
 
 cd ../files
 
-# Create ds CR: 	
+# Create ds CR:
 sed -i -e "s/REPLACE_NAMESPACE/${NAMESPACE}/g" ds-cr.yaml
 echo '*** executing **** oc create -f ds-cr.yaml'
 result=$(oc create -f ds-cr.yaml)
@@ -34,5 +34,5 @@ echo $result
 
 cd ../scripts
 
-# check the CCS cr status	
+# check the CCS cr status
 ./check-cr-status.sh DataStageService datastage-cr ${NAMESPACE} dsStatus

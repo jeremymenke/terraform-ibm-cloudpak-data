@@ -2,7 +2,7 @@
 
 
 
-# Install wsl operator 
+# Install wsl operator
 
 cd ../files
 
@@ -15,7 +15,7 @@ sleep 1m
 
 cd ../scripts
 
-# Checking if the wsl operator pods are ready and running. 
+# Checking if the wsl operator pods are ready and running.
 
 ./pod-status-check.sh ibm-cpd-ws-operator ${OP_NAMESPACE}
 
@@ -30,7 +30,7 @@ if [[ ${ON_VPC} == false ]] ; then
     sed -i -e "s/portworx-shared-gp3/ibmc-file-gold-gid/g" wsl-cr.yaml
 fi
 
-# Create wsl CR: 
+# Create wsl CR:
 sed -i -e "s/CPD_NAMESPACE/${NAMESPACE}/g" wsl-cr.yaml
 result=$(oc create -f wsl-cr.yaml)
 echo $result

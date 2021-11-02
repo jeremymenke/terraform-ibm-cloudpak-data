@@ -16,7 +16,7 @@ oc set data secret/pull-secret -n openshift-config --from-file=.dockerconfigjson
 # copy to current directory
 cp /tmp/dockerconfig.json config.json
 
-# take a backup of dockerconfig.json after bedrock secret added. 
+# take a backup of dockerconfig.json after bedrock secret added.
 cp /tmp/dockerconfig.json /tmp/dockerconfig.json_bedrock_backup
 
 

@@ -3,7 +3,7 @@ kind: Subscription
 metadata:
   name: ibm-bigsql-operator-catalog-subscription
   namespace: OPERATOR_NAMESPACE
-spec:   
+spec:
   channel: v7.2
   installPlanApproval: Automatic
   name: ibm-bigsql-operator

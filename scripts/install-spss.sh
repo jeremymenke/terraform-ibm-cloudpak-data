@@ -2,7 +2,7 @@
 
 
 
-# # Install spss operator 
+# # Install spss operator
 
 cd ../files
 
@@ -15,7 +15,7 @@ sleep 1m
 
 cd ../scripts
 
-# Checking if the spss operator pods are ready and running. 
+# Checking if the spss operator pods are ready and running.
 # checking status of ibm-cpd-spss-operator
 ./pod-status-check.sh ibm-cpd-spss-operator ${OP_NAMESPACE}
 
