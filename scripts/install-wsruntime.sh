@@ -6,8 +6,8 @@ cd ../files
 
 sed -i -e "s/OPERATOR_NAMESPACE/${OP_NAMESPACE}/g" wsruntime-sub.yaml
 
-echo '*** executing **** oc create -f wsruntime-sub.yaml'
-result=$(oc create -f wsruntime-sub.yaml)
+echo '*** executing **** kubectl create -f wsruntime-sub.yaml'
+result=$(kubectl create -f wsruntime-sub.yaml)
 echo $result
 sleep 1m
 
@@ -21,11 +21,11 @@ cd ../files
 
 # switch zen namespace
 
-oc project ${NAMESPACE}
+kubectl project ${NAMESPACE}
 
 # Create wsruntime CR:
 sed -i -e s#CPD_NAMESPACE#${NAMESPACE}#g wsruntime-cr.yaml
-result=$(oc create -f wsruntime-cr.yaml)
+result=$(kubectl create -f wsruntime-cr.yaml)
 echo $result
 
 # check the wsruntime cr status

@@ -3,14 +3,14 @@
 
 
 # Install ca operator
-oc project ${OP_NAMESPACE}
+kubectl project ${OP_NAMESPACE}
 
 cd ../files
 
 sed -i -e "s/OPERATOR_NAMESPACE/${OP_NAMESPACE}/g" ca-sub.yaml
 
-echo '*** executing **** oc create -f ca-sub.yaml'
-result=$(oc create -f ca-sub.yaml)
+echo '*** executing **** kubectl create -f ca-sub.yaml'
+result=$(kubectl create -f ca-sub.yaml)
 echo $result
 sleep 1m
 
@@ -20,7 +20,7 @@ cd ../scripts
 ./pod-status-check.sh ca-operator ${OP_NAMESPACE}
 
 # switch to zen namespace
-oc project ${NAMESPACE}
+kubectl project ${NAMESPACE}
 
 cd ../files
 
@@ -32,8 +32,8 @@ if [[ ${ON_VPC} == false ]] ; then
 fi
 
 sed -i -e "s/REPLACE_NAMESPACE/${NAMESPACE}/g" ca-cr.yaml
-echo '*** executing **** oc create -f ca-cr.yaml'
-result=$(oc create -f ca-cr.yaml)
+echo '*** executing **** kubectl create -f ca-cr.yaml'
+result=$(kubectl create -f ca-cr.yaml)
 echo $result
 
 cd ../scripts

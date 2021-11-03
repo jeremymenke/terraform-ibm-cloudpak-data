@@ -7,8 +7,8 @@
 cd ../files
 
 sed -i -e "s/OPERATOR_NAMESPACE/${OP_NAMESPACE}/g" dods-sub.yaml
-echo '*** executing **** oc create -f dods-sub.yaml'
-result=$(oc create -f dods-sub.yaml)
+echo '*** executing **** kubectl create -f dods-sub.yaml'
+result=$(kubectl create -f dods-sub.yaml)
 echo $result
 
 sleep 1m
@@ -20,15 +20,15 @@ cd ../scripts
 ./pod-status-check.sh ibm-cpd-dods-operator ${OP_NAMESPACE}
 
 # switch to zen namespace
-oc project ${NAMESPACE}
+kubectl project ${NAMESPACE}
 
 cd ../files
 
 # Create dods CR:
 
 sed -i -e "s/REPLACE_NAMESPACE/${NAMESPACE}/g" dods-cr.yaml
-echo '*** executing **** oc create -f dods-cr.yaml'
-result=$(oc create -f dods-cr.yaml)
+echo '*** executing **** kubectl create -f dods-cr.yaml'
+result=$(kubectl create -f dods-cr.yaml)
 echo $result
 
 cd ../scripts

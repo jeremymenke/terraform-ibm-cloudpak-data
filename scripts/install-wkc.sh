@@ -6,11 +6,11 @@
 cd wkc-files
 
 ## Install WKC Operator
-oc project ${OP_NAMESPACE}
+kubectl project ${OP_NAMESPACE}
 
 sed -i -e "s/OPERATOR_NAMESPACE/${OP_NAMESPACE}/g" wkc-sub.yaml
-echo '*** executing **** oc create -f wkc-sub.yaml'
-result=$(oc create -f wkc-sub.yaml)
+echo '*** executing **** kubectl create -f wkc-sub.yaml'
+result=$(kubectl create -f wkc-sub.yaml)
 echo $result
 sleep 1m
 
@@ -20,11 +20,11 @@ sleep 1m
 
 # switch to zen namespace
 
-oc project ${NAMESPACE}
+kubectl project ${NAMESPACE}
 
 sed -i -e "s/REPLACE_NAMESPACE/${NAMESPACE}/g" wkc-iis-scc.yaml
-echo '*** executing **** oc create -f wkc-iis-scc.yaml'
-result=$(oc create -f wkc-iis-scc.yaml)
+echo '*** executing **** kubectl create -f wkc-iis-scc.yaml'
+result=$(kubectl create -f wkc-iis-scc.yaml)
 echo $result
 
 
@@ -36,8 +36,8 @@ if [[ ${ON_VPC} == false ]] ; then
 fi
 
 sed -i -e "s/REPLACE_NAMESPACE/${NAMESPACE}/g" wkc-cr.yaml
-echo '*** executing **** oc create -f wkc-cr.yaml'
-result=$(oc create -f wkc-cr.yaml)
+echo '*** executing **** kubectl create -f wkc-cr.yaml'
+result=$(kubectl create -f wkc-cr.yaml)
 echo $result
 
 # check the wkc cr status

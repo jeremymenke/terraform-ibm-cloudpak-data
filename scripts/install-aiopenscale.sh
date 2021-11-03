@@ -4,8 +4,8 @@
 cd ../files
 
 sed -i -e "s/OPERATOR_NAMESPACE/${OP_NAMESPACE}/g" wos-sub.yaml
-echo '*** executing **** oc create -f wos-sub.yaml'
-result=$(oc create -f wos-sub.yaml)
+echo '*** executing **** kubectl create -f wos-sub.yaml'
+result=$(kubectl create -f wos-sub.yaml)
 echo $result
 
 sleep 1m
@@ -19,7 +19,7 @@ sleep 10m
 
 # switch zen namespace
 
-oc project ${NAMESPACE}
+kubectl project ${NAMESPACE}
 
 cd ../files
 
@@ -31,8 +31,8 @@ if [[ ${ON_VPC} == false ]] ; then
 fi
 
 sed -i -e "s/CPD_NAMESPACE/${NAMESPACE}/g" wos-cr.yaml
-echo '*** executing **** oc create -f wos-cr.yaml'
-result=$(oc create -f wos-cr.yaml)
+echo '*** executing **** kubectl create -f wos-cr.yaml'
+result=$(kubectl create -f wos-cr.yaml)
 echo $result
 
 cd ../scripts

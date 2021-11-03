@@ -16,7 +16,7 @@ resource "null_resource" "setkernelparams" {
     }
     working_dir = "${path.module}/files/"
     interpreter = ["/bin/bash", "-c"]
-    command     = "oc apply -n kube-system -f ${local.setkernelparams_file}"
+    command     = "kubectl apply -n kube-system -f ${local.setkernelparams_file}"
   }
 }
 
@@ -31,7 +31,7 @@ resource "null_resource" "create_registry_route" {
       KUBECONFIG = var.cluster_config_path
     }
     interpreter = ["/bin/bash", "-c"]
-    command     = "oc create route reencrypt --service=image-registry -n openshift-image-registry"
+    command     = "kubectl create route reencrypt --service=image-registry -n openshift-image-registry"
   }
 }
 resource "null_resource" "annotate_registry_route" {
@@ -42,7 +42,7 @@ resource "null_resource" "annotate_registry_route" {
       KUBECONFIG = var.cluster_config_path
     }
     interpreter = ["/bin/bash", "-c"]
-    command     = "oc annotate route image-registry --overwrite haproxy.router.openshift.io/balance=source -n openshift-image-registry"
+    command     = "kubectl annotate route image-registry --overwrite haproxy.router.openshift.io/balance=source -n openshift-image-registry"
   }
 }
 
