@@ -8,8 +8,8 @@ cd ../files
 
 sed -i -e "s/OPERATOR_NAMESPACE/${OP_NAMESPACE}/g" wsl-sub.yaml
 
-echo '*** executing **** kubectl create -f wsl-sub.yaml'
-result=$(kubectl create -f wsl-sub.yaml)
+echo '*** executing **** oc create -f wsl-sub.yaml'
+result=$(oc create -f wsl-sub.yaml)
 echo $result
 sleep 1m
 
@@ -23,7 +23,7 @@ cd ../scripts
 
 cd ../files
 
-kubectl project ${NAMESPACE}
+oc project ${NAMESPACE}
 
 # ****** sed command for classic goes here *******
 if [[ ${ON_VPC} == false ]] ; then
@@ -32,7 +32,7 @@ fi
 
 # Create wsl CR:
 sed -i -e "s/CPD_NAMESPACE/${NAMESPACE}/g" wsl-cr.yaml
-result=$(kubectl create -f wsl-cr.yaml)
+result=$(oc create -f wsl-cr.yaml)
 echo $result
 
 cd ../scripts

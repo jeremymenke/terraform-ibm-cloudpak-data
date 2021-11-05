@@ -4,7 +4,7 @@ SERVICE=$1
 CRNAME=$2
 NAMESPACE=$3
 SERVICE_STATUS=$4
-STATUS=$(kubectl get $SERVICE $CRNAME -n $NAMESPACE -o json | jq .status.$SERVICE_STATUS | xargs)
+STATUS=$(oc get $SERVICE $CRNAME -n $NAMESPACE -o json | jq .status.$SERVICE_STATUS | xargs)
 
 ATTEMPTS=0
 TIMEOUT=300 # 5 hours
@@ -16,7 +16,7 @@ while  [[ ! $STATUS =~ ^(Completed|Complete)$ ]]; do
     fi
     echo "$CRNAME is Installing!!!!"
     sleep 60
-    STATUS=$(kubectl get $SERVICE $CRNAME -n $NAMESPACE -o json | jq .status.$SERVICE_STATUS | xargs)
+    STATUS=$(oc get $SERVICE $CRNAME -n $NAMESPACE -o json | jq .status.$SERVICE_STATUS | xargs)
     if [ " $STATUS" == "Failed" ]
     then
         echo "**********************************"

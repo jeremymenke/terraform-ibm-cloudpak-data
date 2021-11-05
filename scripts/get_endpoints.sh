@@ -21,9 +21,9 @@ results() {
   exit 0
 }
 
-# route=$(kubectl get route -n ${NAMESPACE} cpd -o jsonpath='{.spec.host}' && echo)
-route=$(kubectl get route -n ${NAMESPACE} cpd -o json | jq -r .spec.host)
-pass=$(kubectl -n ${NAMESPACE} get secret admin-user-details -o jsonpath='{.data.initial_admin_password}' | base64 -d && echo)
+# route=$(oc get route -n ${NAMESPACE} cpd -o jsonpath='{.spec.host}' && echo)
+route=$(oc get route -n ${NAMESPACE} cpd -o json | jq -r .spec.host)
+pass=$(oc -n ${NAMESPACE} get secret admin-user-details -o jsonpath='{.data.initial_admin_password}' | base64 -d && echo)
 user="admin"
 
 results "${route}" "${pass}" "${user}"

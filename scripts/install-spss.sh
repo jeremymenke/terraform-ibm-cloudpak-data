@@ -8,8 +8,8 @@ cd ../files
 
 sed -i -e "s/OPERATOR_NAMESPACE/${OP_NAMESPACE}/g" spss-sub.yaml
 
-echo '*** executing **** kubectl create -f spss-sub.yaml'
-result=$(kubectl create -f spss-sub.yaml)
+echo '*** executing **** oc create -f spss-sub.yaml'
+result=$(oc create -f spss-sub.yaml)
 echo $result
 sleep 1m
 
@@ -20,7 +20,7 @@ cd ../scripts
 ./pod-status-check.sh ibm-cpd-spss-operator ${OP_NAMESPACE}
 
 # switch to zen namespace
-kubectl project ${NAMESPACE}
+oc project ${NAMESPACE}
 
 cd ../files
 
@@ -32,8 +32,8 @@ if [[ ${ON_VPC} == false ]] ; then
 fi
 
 sed -i -e "s/REPLACE_NAMESPACE/${NAMESPACE}/g" spss-cr.yaml
-echo '*** executing **** kubectl create -f spss-cr.yaml'
-result=$(kubectl create -f spss-cr.yaml)
+echo '*** executing **** oc create -f spss-cr.yaml'
+result=$(oc create -f spss-cr.yaml)
 echo $result
 
 cd ../scripts

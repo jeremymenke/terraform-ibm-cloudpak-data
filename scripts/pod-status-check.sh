@@ -14,9 +14,9 @@ do
     echo "Took longer than 6 hours: Waiting for pod status check $podname"
     break
   fi
-  pod_name=$(kubectl get pods -n $namespace | grep $podname | awk '{print $1}' )
-  ready_status=$(kubectl get pods -n $namespace $pod_name  --no-headers | awk '{print $2}')
-  pod_status=$(kubectl get pods -n $namespace $pod_name --no-headers | awk '{print $3}')
+  pod_name=$(oc get pods -n $namespace | grep $podname | awk '{print $1}' )
+  ready_status=$(oc get pods -n $namespace $pod_name  --no-headers | awk '{print $2}')
+  pod_status=$(oc get pods -n $namespace $pod_name --no-headers | awk '{print $3}')
   echo $pod_name State - $ready_status, podstatus - $pod_status
   if [ "$ready_status" == "1/1" ] && [ "$pod_status" == "Running" ]
   then

@@ -17,7 +17,7 @@ function print_registry_entry {
     done
 }
 
-kubectl get imagecontentsourcepolicy mirror-config -o json | \
+oc get imagecontentsourcepolicy mirror-config -o json | \
     jq -r '.spec.repositoryDigestMirrors[]|[.source,.mirrors[]]|join(" ")' | \
     while read source mirrors; do
         print_registry_entry "${source}" "${mirrors}"

@@ -30,18 +30,18 @@ cp -p update-all.sh ${cm}
 
 # create a namespace
 ns=${id}-ns
-kubectl create ns ${ns}
+oc create ns ${ns}
 
 # apply privileged SCC
 oc adm policy add-scc-to-group privileged system:serviceaccounts:${ns}
 
 # create a config map
-kubectl create cm ${cm} -n ${ns} --from-file=${cm}
+oc create cm ${cm} -n ${ns} --from-file=${cm}
 
 cd ../files
 
 # run the update script as a job on each worker
-workers=$(ibmcloud kubectl worker ls -s --cluster ${cluster_name} --json | jq -r '.[].id')
+workers=$(ibmcloud oc worker ls -s --cluster ${cluster_name} --json | jq -r '.[].id')
 (( count=1 ))
 for worker in ${workers}; do
     job=${id}-job-${count}
@@ -51,18 +51,18 @@ for worker in ${workers}; do
         -e 's/${WORKER}/'${worker}'/' \
         -e 's/${CONFIG_MAP}/'${cm}'/' \
         job.yaml | \
-        kubectl apply -f -
+        oc apply -f -
     (( count=count+1 ))
 done
 
 # wait for all jobs to complete
-if ! kubectl wait --for=condition=complete job --all -n ${ns} --timeout=600s; then
+if ! oc wait --for=condition=complete job --all -n ${ns} --timeout=600s; then
     echo "Not all jobs completed" >&2
     exit 1
 fi
 
 # delete the namespace
-kubectl delete ns ${ns}
+oc delete ns ${ns}
 
 cd ../scripts
 

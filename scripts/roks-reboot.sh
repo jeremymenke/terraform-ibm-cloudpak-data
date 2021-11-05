@@ -19,7 +19,7 @@ fi
 
 function get_status {
     private_ip=$1
-    kubectl get node ${private_ip} --no-headers | awk '{print $2}'
+    oc get node ${private_ip} --no-headers | awk '{print $2}'
 }
 
 function reboot {
@@ -35,10 +35,10 @@ function reboot {
     if ${ON_VPC}; then
     # this is the name under which k8s knows the node
     #for VPC Gen2 ROKS Cluster -
-    private_ip=$(ibmcloud kubectl worker get -s --cluster ${cluster} --worker ${worker} --json | jq -r .networkInterfaces[].ipAddress)
+    private_ip=$(ibmcloud oc worker get -s --cluster ${cluster} --worker ${worker} --json | jq -r .networkInterfaces[].ipAddress)
     else
     #for Classic cluster please use the below line of code instead of above
-    private_ip=$(ibmcloud kubectl worker get -s --cluster ${cluster} --worker ${worker} --json | jq -r .privateIP)
+    private_ip=$(ibmcloud oc worker get -s --cluster ${cluster} --worker ${worker} --json | jq -r .privateIP)
     fi
 
     echo "Rebooting worker ${worker} (${private_ip}) ..."
@@ -48,9 +48,9 @@ function reboot {
     fi
 
     if ${ON_VPC}; then
-        ibmcloud kubectl worker reboot -s -f --cluster ${cluster} ${reboot_worker_flag} ${worker}
+        ibmcloud oc worker reboot -s -f --cluster ${cluster} ${reboot_worker_flag} ${worker}
     else
-        ibmcloud kubectl worker reload -f --cluster ${cluster} ${reboot_worker_flag} ${worker}
+        ibmcloud oc worker reload -f --cluster ${cluster} ${reboot_worker_flag} ${worker}
     fi
     # wait up to 15 min for node to get back to Ready state
     shutdown=false
@@ -85,7 +85,7 @@ function reboot {
 }
 
 if [[ -z "${workers}" ]]; then
-    workers=$(ibmcloud kubectl worker ls -s --cluster ${cluster} --json | jq -r '.[].id')
+    workers=$(ibmcloud oc worker ls -s --cluster ${cluster} --json | jq -r '.[].id')
 fi
 
 queue=(${workers})

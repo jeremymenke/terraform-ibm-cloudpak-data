@@ -17,26 +17,26 @@ cd ../files
 
 # # create bedrock catalog source
 
-echo '*** executing **** kubectl create -f bedrock-catalog-source.yaml'
+echo '*** executing **** oc create -f bedrock-catalog-source.yaml'
 
-result=$(kubectl create -f ibm-op-catalog-source.yaml)
+result=$(oc create -f ibm-op-catalog-source.yaml)
 echo $result
 sleep 1m
 
-echo '*** executing **** kubectl create -f db2u-op-catalog.yaml'
+echo '*** executing **** oc create -f db2u-op-catalog.yaml'
 
-result=$(kubectl create -f db2u-op-catalog.yaml)
+result=$(oc create -f db2u-op-catalog.yaml)
 echo $result
 
 sleep 30
 
-echo '*** executing **** kubectl create -f dmc-operator-catalog.yaml'
-result=$(kubectl create -f dmc-operator-catalog.yaml)
+echo '*** executing **** oc create -f dmc-operator-catalog.yaml'
+result=$(oc create -f dmc-operator-catalog.yaml)
 echo $result
 sleep 30
 
-echo '*** executing **** kubectl create -f ccs-operator-catalog.yaml'
-result=$(kubectl create -f ccs-operator-catalog.yaml)
+echo '*** executing **** oc create -f ccs-operator-catalog.yaml'
+result=$(oc create -f ccs-operator-catalog.yaml)
 echo $result
 sleep 30
 
@@ -47,7 +47,7 @@ while true; do
     echo "TIMED OUT: ibm-operator-catalog"
     exit 1
   fi
-  if kubectl get catalogsource -n openshift-marketplace | grep ibm-operator-catalog >/dev/null 2>&1; then
+  if oc get catalogsource -n openshift-marketplace | grep ibm-operator-catalog >/dev/null 2>&1; then
     echo -e "IBM Operator Catalog was successfully created."
     break
   fi
@@ -61,7 +61,7 @@ while true; do
     echo "TIMED OUT: ibm-db2uoperator-catalog"
     exit 1
   fi
-  if kubectl get catalogsource -n openshift-marketplace | grep ibm-db2uoperator-catalog >/dev/null 2>&1; then
+  if oc get catalogsource -n openshift-marketplace | grep ibm-db2uoperator-catalog >/dev/null 2>&1; then
     echo -e "IBM Db2U Catalog was successfully created."
     break
   fi
@@ -72,27 +72,27 @@ done
 
 # Creating the ibm-common-services namespace:
 
-kubectl new-project ${OP_NAMESPACE}
-kubectl project ${OP_NAMESPACE}
+oc new-project ${OP_NAMESPACE}
+oc project ${OP_NAMESPACE}
 
 # Create bedrock operator group:
 
 sed -i -e "s/OPERATOR_NAMESPACE/${OP_NAMESPACE}/g" bedrock-operator-group.yaml
 
-echo '*** executing **** kubectl create -f bedrock-operator-group.yaml'
+echo '*** executing **** oc create -f bedrock-operator-group.yaml'
 
 
-result=$(kubectl create -f bedrock-operator-group.yaml)
+result=$(oc create -f bedrock-operator-group.yaml)
 echo $result
 sleep 1m
 
 
-kubectl patch NamespaceScope common-service -n ibm-common-services --type=merge --patch='{"spec": {"csvInjector": {"enable": true} } }'
+oc patch NamespaceScope common-service -n ibm-common-services --type=merge --patch='{"spec": {"csvInjector": {"enable": true} } }'
 
 
 sed -i -e "s/OPERATOR_NAMESPACE/${OP_NAMESPACE}/g" cpd-operator-sub.yaml
-echo '*** executing **** kubectl create -f cpd-operator-sub.yaml'
-result=$(kubectl create -f cpd-operator-sub.yaml)
+echo '*** executing **** oc create -f cpd-operator-sub.yaml'
+result=$(oc create -f cpd-operator-sub.yaml)
 echo $result
 sleep 60
 
@@ -103,7 +103,7 @@ while true; do
     echo "TIMED OUT: cpd-platform-operator.v2.0.4 sub"
     exit 1
   fi
-  if kubectl get sub -n ${OP_NAMESPACE} cpd-operator -o jsonpath='{.status.installedCSV} {"\n"}' | grep cpd-platform-operator.v2.0.4 >/dev/null 2>&1; then
+  if oc get sub -n ${OP_NAMESPACE} cpd-operator -o jsonpath='{.status.installedCSV} {"\n"}' | grep cpd-platform-operator.v2.0.4 >/dev/null 2>&1; then
     echo -e "\ncpd-platform-operator.v2.0.4 was successfully created."
     break
   fi
@@ -117,7 +117,7 @@ while true; do
     echo "TIMED OUT: cpd-platform-operator.v2.0.4 csv"
     exit 1
   fi
-  if kubectl get csv -n ${OP_NAMESPACE} cpd-platform-operator.v2.0.4 -o jsonpath='{ .status.phase } : { .status.message} {"\n"}' | grep "Succeeded : install strategy completed with no errors" >/dev/null 2>&1; then
+  if oc get csv -n ${OP_NAMESPACE} cpd-platform-operator.v2.0.4 -o jsonpath='{ .status.phase } : { .status.message} {"\n"}' | grep "Succeeded : install strategy completed with no errors" >/dev/null 2>&1; then
     echo -e "\nInstall strategy completed with no errors"
     break
   fi
@@ -131,7 +131,7 @@ while true; do
     echo "TIMED OUT: cpd-platform-operator.v2.0.4 deployments"
     exit 1
   fi
-  if kubectl get deployments -n ${OP_NAMESPACE} -l olm.owner="cpd-platform-operator.v2.0.4" -o jsonpath="{.items[0].status.availableReplicas} {'\n'}" | grep 1 >/dev/null 2>&1; then
+  if oc get deployments -n ${OP_NAMESPACE} -l olm.owner="cpd-platform-operator.v2.0.4" -o jsonpath="{.items[0].status.availableReplicas} {'\n'}" | grep 1 >/dev/null 2>&1; then
     echo -e "\ncpd-platform-operator.v2.0.4 is ready."
     break
   fi
@@ -145,7 +145,7 @@ while true; do
     echo "TIMED OUT: ibm-namespace-scope-operator"
     exit 1
   fi
-  if kubectl get pods -n ${OP_NAMESPACE} | grep ibm-namespace-scope-operator >/dev/null 2>&1; then
+  if oc get pods -n ${OP_NAMESPACE} | grep ibm-namespace-scope-operator >/dev/null 2>&1; then
     echo -e "\nibm-namespace-scope-operator pods running"
     break
   fi
@@ -159,7 +159,7 @@ while true; do
     echo "TIMED OUT: cpd-platform-operator-manager"
     exit 1
   fi
-  if kubectl get pods -n ${OP_NAMESPACE} | grep cpd-platform-operator-manager >/dev/null 2>&1; then
+  if oc get pods -n ${OP_NAMESPACE} | grep cpd-platform-operator-manager >/dev/null 2>&1; then
     echo -e "\ncpd-platform-operator-manager pods running"
     break
   fi
@@ -174,15 +174,15 @@ while true; do
     echo "TIMED OUT: namespace-scope ibm-common-service-operator"
     exit 1
   fi
-  # local cm_ns_status=$(kubectl get cm namespace-scope -n ibm-common-services)
-  cm_ns_status=$(kubectl get cm namespace-scope -n $OP_NAMESPACE)
+  # local cm_ns_status=$(oc get cm namespace-scope -n ibm-common-services)
+  cm_ns_status=$(oc get cm namespace-scope -n $OP_NAMESPACE)
   if [[ -n $cm_ns_status ]]; then
     echo "Config Map namespace-scope exist."
     break
   fi
   ATTEMPTS=$((ATTEMPTS + 1))
   sleep 30
-  kubectl get pods -n ${OP_NAMESPACE} -l name=ibm-common-service-operator | awk '{print $1}' | grep -Ev NAME | xargs kubectl delete pods -n $OP_NAMESPACE
+  oc get pods -n ${OP_NAMESPACE} -l name=ibm-common-service-operator | awk '{print $1}' | grep -Ev NAME | xargs oc delete pods -n $OP_NAMESPACE
   sleep 30
 done
 
@@ -195,17 +195,17 @@ while true; do
     echo "TIMED OUT: Waiting for Bedrock operator pods"
     exit 1
   fi
-  pod_status=$(kubectl get pods -n ${OP_NAMESPACE} | grep -Ev "NAME|1/1|2/2|3/3|5/5|Comp")
+  pod_status=$(oc get pods -n ${OP_NAMESPACE} | grep -Ev "NAME|1/1|2/2|3/3|5/5|Comp")
   if [[ -z $pod_status ]]; then
     echo "All pods are running now"
     break
   fi
   echo "Waiting for Bedrock operator pods ready"
-  kubectl get pods -n ${OP_NAMESPACE}
+  oc get pods -n ${OP_NAMESPACE}
   ATTEMPTS=$((ATTEMPTS + 1))
   sleep 30
-  if [[ `kubectl get po -n ${OP_NAMESPACE}` =~ "Error" ]]; then
-    kubectl delete `kubectl get po -o name | grep ibm-common-service-operator`
+  if [[ `oc get po -n ${OP_NAMESPACE}` =~ "Error" ]]; then
+    oc delete `oc get po -o name | grep ibm-common-service-operator`
   else
     echo "No pods with Error"
   fi
@@ -237,14 +237,14 @@ cd ../files
 
 # Create zen namespace
 
-kubectl new-project ${NAMESPACE}
-kubectl project ${NAMESPACE}
+oc new-project ${NAMESPACE}
+oc project ${NAMESPACE}
 
 # Create the zen operator
 sed -i -e s#CPD_NAMESPACE#${NAMESPACE}#g cpd-operandrequest.yaml
 
-echo '*** executing **** kubectl create -f cpd-operandrequest.yaml'
-result=$(kubectl create -f cpd-operandrequest.yaml)
+echo '*** executing **** oc create -f cpd-operandrequest.yaml'
+result=$(oc create -f cpd-operandrequest.yaml)
 echo $result
 sleep 30
 
@@ -256,8 +256,8 @@ fi
 
 # Create lite CR:
 sed -i -e s#CPD_NAMESPACE#${NAMESPACE}#g ibmcpd-cr.yaml
-echo '*** executing **** kubectl create -f ibmcpd-cr.yaml'
-result=$(kubectl create -f ibmcpd-cr.yaml)
+echo '*** executing **** oc create -f ibmcpd-cr.yaml'
+result=$(oc create -f ibmcpd-cr.yaml)
 echo $result
 
 cd ../scripts
